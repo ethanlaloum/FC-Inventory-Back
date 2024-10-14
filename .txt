@@ -1,0 +1,11 @@
+id
+product_name
+brand
+model
+product_type
+quantity
+created_at
+updated_at
+code
+description
+image_url

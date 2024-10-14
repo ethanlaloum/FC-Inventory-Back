@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  product_name String   @db.VarChar(255)
+  brand        String?  @db.VarChar(255)  // Nullable
+  model        String?  @db.VarChar(255)  // Nullable
+  product_type String?  @db.VarChar(255)  // Nullable
+  quantity     Int?     // Nullable
+  created_at   DateTime @default(now())   // Valeur par défaut : CURRENT_TIMESTAMP
+  updated_at   DateTime? @updatedAt       // Mis à jour automatiquement
+  code         BigInt?             // Nullable
+  description  String?  @db.Text            // Nullable
+  image_url    String?  @db.Text            // Nullable
+
+  @@map("products")  // Mapping to your table name in the database
+}
+
+model User {
+  id           Int      @id @default(autoincrement())  // Auto-incrementing ID
+  email        String   @unique                       // Email (non-nullable, unique)
+  password     String                                // Password (non-nullable)
+  first_name   String?                               // First name (nullable)
+  last_name    String?                               // Last name (nullable)
+  phone_number String?                               // Phone number (nullable)
+
+  @@map("users")  // Mapping to the 'users' table in the database
+}
+
+model Log {
+  id               Int      @id @default(autoincrement())  // Auto-incrementing ID
+  stock_id         Int                                      // Stock ID (non-nullable)
+  user_name        String?                                  // User name (nullable)
+  item_description String?                                  // Item description (nullable)
+  action           String?                                  // Action (nullable)
+  quantity_changed Int?                                     // Quantity changed (nullable)
+  log_time         DateTime @default(now())                 // Log time (current timestamp by default)
+
+  @@map("logs")                                              // Mapping to the 'logs' table in the database
+  @@index([stock_id])                                        // Creating a non-unique index (MUL key) on stock_id
+}

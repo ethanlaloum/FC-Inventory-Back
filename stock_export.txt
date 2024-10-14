@@ -1,0 +1,6 @@
+fc-intégration
+
+ID	Nom	Marque	Modèle	Type	Quantité
+1	Sac à Dos	North Face	Recon	Accessoires	1085
+25					2
+26	Okay	Okay 	Okay	Okay	8
